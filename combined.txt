@@ -1,0 +1,483 @@
+#10. WAP oto demonstrate that constructor will execute only once per object
+
+class Addition:
+    first = 0
+    second = 0
+    answer = 0
+    def __init__(self, f, s):
+        self.first = f
+        self.second = s
+    def display(self):
+        print("First number = " + str(self.first))
+        print("Second number = " + str(self.second))
+        print("Addition of two numbers = " + str(self.answer))
+
+    def calculate(self):
+        self.answer = self.first + self.second
+
+obj = Addition(1000, 2000)
+obj.calculate()
+obj.display()
+
+ob = Addition(100, 200)
+ob.calculate()
+ob.display()
+
+"""Output
+First number = 1000
+Second number = 2000
+Addition of two numbers = 3000
+First number = 100
+Second number = 200
+Addition of two numbers = 300
+
+So it is shown that constructor is executed once per object""""""11. WAP to demonstrate where can we declare the instance variables
+	1. inside constructer
+	2. insite instance method
+	3. ouside class ny using object reference variable"""
+
+#Declaring instance variable inside constructor
+class Student:
+    def __init__(self, StdName, RollNo, StdGender):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.StdGender= StdGender
+
+#Declaring instance variable inside instance method
+class shape:
+    def __init__(self, edge, color):
+        self.edge = edge
+        self.color = color
+    def finEdges(self):
+        return self.edge
+    def modifyEdges(self, newedge):
+        self.edge = newedge
+circle = shape(0, 'red')
+square = shape(4, 'blue')
+square.modifyEdges(6)
+print("No. of edges for square: " + str(square.finEdges()))
+
+#Declaring outside class
+
+outVar = 'outside_class'
+print("Outside_class1", outVar)
+class Geek:
+    print("Outside_class2", outVar)
+
+    def access(self):
+        print("Outside_class3", outVar)
+uac = Geek()
+uac.access()
+
+"""Output
+No. of edges for square: 6
+Outside_class1 outside_class
+Outside_class2 outside_class
+Outside_class3 outside_class""""""12. Using variables declared in Que 4,
+	1. Print using self
+	2. delete using self
+	3. delete using object reference
+	4. Update the value of RollNo and print the object"""
+
+class Student:
+    def __init__(self, StdName, RollNo, StdGender):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.StdGender= StdGender
+    def kill_a(self):
+        print(self)
+        del self
+
+    def kl(self,RollNo):
+        del (self.RollNo)
+
+Stud = Student("Sammy", 5, 'M')
+print(Stud.StdName)
+print(Stud.RollNo)
+print(Stud.StdGender)
+
+
+a=Student('Ankit',7,'M')
+a.kill_a()
+
+b=Student('Ria',10,'F')
+b.kl(b.RollNo)
+
+#Update
+Stud.RollNo=15
+print(Stud.RollNo)
+
+"""Output
+Sammy
+5
+M
+<__main__.Student object at 0x000001C4BBAAFE08>
+15"""
+#13. Write short note on static variables
+
+"""When we declare a variable inside a class but outside any method, it is called as class or static variable in python. Class or static variable can be referred through a class but not directly through an instance.
+Class or static variable are quite distinct from and does not conflict with any other member variable with the same name
+"""
+class Student:
+    dept = 'Information technology'   #Static variable
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id"""14. WAP to declare the static variable as school name in above Student class
+	1. Declare within class and outside the method body
+	2. inside constructor using class name
+	3. inside method using class name
+	4. inside class method using class name or cls variable5.  insite static methos using class name """
+
+class Student:
+    sch_name='DPS'
+    def __init__(self):
+         Student.sch_name='MGM'
+
+    def method(self):
+        Student.sch_name='DAV'
+    def method1(cls):
+        cls.sch_name='Jindal'
+
+    def method2():
+        Student.sch_name='Chinmaya'
+
+
+"""15. WAP to access the static variable
+	1. inside constructor using self or classname
+	2. inside instance methos using self or classname
+	3. inside class method using cls variable or classname
+	4. inside static method using classname
+	5. from outside of the class using reference ir classname"""
+
+
+class Test:
+    a = 10
+    def __init__(self):
+        print(self.a)  ## accessing by using self variable
+        print(Test.a)  ## accessing by using classname
+
+    def method(self):   ##accessing the static variable inside the instance method
+        print(self.a)    ## by using self variable
+        print(Test.a)    ## by using classname
+
+    def method1(cls):      ##class method
+        print(cls.a) ##accessing by  using the cls variable
+        print(Test.a) ## accessing by using the classname
+
+    def method2():    ##static method
+        print(Test.a)    ##byusing class name
+
+
+t = Test()
+print(t.a)
+print(Test.a)
+
+"""Output
+10
+10
+10
+10""""""16. Modify the value of School name and observe the behaviour
+	1. Modify using class name
+	2. Modify using cls variable
+	3. Observe the behaviour by updating it valus using self or using object reference variable"""
+
+
+class Student:
+    sch_name = 'DPS'
+    def __init__(self, name, roll):
+        self.name = name
+        self.roll = roll
+a = Student("check", 3)
+a.sch_name = "DAV"
+Student.sch_name = "MGM"
+
+"""Using class object we can change the value for the particular object but by using class name we can change
+it for all objects""""""17. WAP to delete the value of School name and observe the behaviour
+	1. using classname.variable name
+	2. using cls """
+
+
+class Student:
+    sch_name = 'DPS'
+    def __init__(self, name, roll):
+        self.name = name
+        self.roll = roll
+
+a = Student("check", 3)
+del Student.sch_name
+delattr(Student, 'sch_name')
+
+"""del is more explicit and efficient and delattr() allows dynamic attribute deleting.
+ del is slightly faster in comparison to delattr(), depending on the machine.""""""18. Using Instance method: WAP using below details
+	1. Create a student class having name and marks as parameters
+	2. Create display method to display name and marks of student
+	3. CReate method grade which will take marks as parameters and displays the grade of the student. Ex. if marks > 60 then First grade if marke are greter than 50 then Second grade else Student us failed
+	4. Use setter and getter to initialize the instance variables"""
+
+class Student:
+    def __init__(self, StdName, RollNo, marks):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.marks= marks
+
+    def display(self):
+        print(self.StdName)
+        print(self.RollNo)
+        print(self.marks)
+
+    def grade(self):
+        if(self.marks>60):
+            print("Grade A")
+        elif(self.marks>50):
+            print("Grade B")
+        else:
+            print("Fail")
+
+
+raj = Student('Raj',4,70)
+raj.display()
+raj.grade()
+
+"""Output
+Raj
+4
+70
+Grade A"""
+#19. Using class method: WAP to get number of objectes created for a class
+
+class Student:
+    counter = 0
+
+    def __init__(self, name):
+        self.name = name
+        Student.counter += 1
+student1 = Student('Ankit ')
+student2 = Student('Sarthak')
+student3 = Student('Kunal')
+
+print("Total number of objects created: ", Student.counter)
+
+"""Output
+Total number of objects created:  3"""#2. Waht is object in python
+
+"""Object is an entity of the class. Object is used to access various data member and member functions."""#20. Using class method: WAP to print the given number if odd or even
+
+class Number:
+    def __init__(self,num):
+        self.num=num
+    @classmethod
+    def check(cls,num):
+        if(num%2==0):
+            print("Number is even")
+        else:
+            print("Number is odd")
+
+a=Number(4)
+a.check(4)
+
+"""Output
+Number is even"""#21. Using Static method: WAP to print addition, substraction and product of two numbers
+
+class Number:
+    def __init__(self,num1,num2):
+        self.num1=num1
+        self.num2=num2
+
+    @staticmethod
+    def calculate(a,b):
+        print(a+b)
+        print(a*b)
+        print(a-b)
+
+num=Number(4,6)
+Number.calculate(4,6)
+
+"""Output
+10
+24
+-2
+"""
+"""22. Pass members of one class to other class: Use below details
+	1. Create class "Student" with Student name, roll number and marks. Define display method.
+	2. Create class "StudentModifier" and define modify method which will update the student marks(marks + 10) and prints the updted marks using display method.
+"""
+
+class Student:
+    def __init__(self, StdName, RollNo, marks):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.marks= marks
+
+    def display(self):
+        print("Name",self.StdName)
+        print("Rollno",self.RollNo)
+        print("Marks",self.marks)
+
+class StudentModifier(Student):
+    def __init__(self, StdName, RollNo, marks):
+        super().__init__(StdName, RollNo, marks)
+    def modify(self):
+        print("Modified Marks",self.marks+10)
+
+ak=Student('Ankit',7,80)
+ak.display()
+bk=StudentModifier(ak.StdName,ak.RollNo,ak.marks)
+bk.modify()
+
+"""Output
+Name Ankit
+Rollno 7
+Marks 80
+Modified Marks 90""""""23. Using Inner class: WAP using below details
+	1. Create class "Student" with Student name and roll number. Define display method.
+	2. Inside Student class create inner class as Address which will be having localoty, district, state and pin as instance variables
+	3. Create instance of student class and print the student details
+	4. Inside Student class create another inner class as Marks which will be having marks of Physics, Chem and Maths as instance variables
+	5. Create instance of student class and print the student details """
+
+class Student:
+    def __init__(self, StdName, RollNo):
+        self.StdName = StdName
+        self.RollNo = RollNo
+
+    def display(self):
+        print("Name",self.StdName)
+        print("Rollno",self.RollNo)
+
+    class Address:
+        def __init__(self,locality,district,state,pin):
+            self.locality=locality
+            self.district=district
+            self.state=state
+            self.pin=pin
+
+        def display(self):
+            print("Locality", self.locality)
+            print("District", self.district)
+            print("State", self.state)
+            print("Pin",self.pin)
+
+    class Marks:
+        def __init__(self,phy,chem,maths):
+            self.phy=phy
+            self.chem=chem
+            self.maths=maths
+
+        def display(self):
+            print("Physics", self.phy)
+            print("Chemestry", self.chem)
+            print("Maths", self.maths)
+
+a=Student('Ankit',7)
+a.display()
+a.Address('Sector-20','Rourkela','Odisha',769005).display()
+a.Marks(50,60,70).display()
+
+"""Output
+Name Ankit
+Rollno 7
+Locality Sector-20
+District Rourkela
+State Odisha
+Pin 769005
+Physics 50
+Chemestry 60
+Maths 70"""#24. Garbage Collection: WAP to enable, disable GC and check if GC is enabled or not
+import gc
+
+x=4
+x+=1
+gc.enable()
+collected = gc.collect()
+print(collected)
+gc.disable()
+print(gc.isenabled())#25. Write a short not on Garbage Collection
+
+"""Python’s memory allocation and deallocation method is automatic. The user does not have to preallocate or
+deallocate memory similar to using dynamic memory allocation.
+Python schedules garbage collection based upon a threshold of object allocations and object deallocations.
+When the number of allocations minus the number of deallocations is greater than the threshold number, the garbage
+collector is run.""""""26. WAP to demonstrate use of __del__ i.e. destructor method """
+
+
+class Student:
+    def __init__(self):
+        print('Class Created')
+
+    def __del__(self):
+        print('Destructor called')
+
+
+obj = Student()
+del obj
+
+"""Output
+Class Created
+Destructor called"""#27. WAP to check number of references a Student object is having. Use Que 23.#3. What is reference variable
+
+"""A reference variable is a variable that points to an object of a given class, letting you access the value of an object. An object is a compound data structure that holds values that you can manipulate. A reference variable does not store its own values."""#4. How to defin a class, define a student class with instance variables as StdName, RollNo. and StdGender. Create Constructor ( Ref. __init__(self) )
+
+class Student:
+    def __init__(self, StdName, RollNo, StdGender):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.StdGender= StdGender#5. Using Que 4, defin a method which takes self as a parameter and print the StdName, RollNo. and StdGender
+
+class Student:
+    def __init__(self, StdName, RollNo, StdGender):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.StdGender= StdGender
+
+Stud = Student("Sammy", 5, 'M')
+print(Stud.StdName)
+print(Stud.RollNo)
+print(Stud.StdGender)
+
+"""Output
+Sammy
+5
+M"""#6. Create object of the student class and call display method
+
+class Student:
+    def __init__(self, StdName, RollNo, StdGender):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.StdGender= StdGender
+
+Stud = Student("Sammy", 5, 'M')
+print("Information is as follows")
+print(Stud.StdName)
+print(Stud.RollNo)
+print(Stud.StdGender)
+
+"""Output
+Information is as follows
+Sammy
+5
+M"""#7. What is self variable
+
+"""Python self variable is used to bind the instance of the class to the instance method.
+This variable is used only with the instance methods."""#8. What is difference between Parameterized and Non Parameterized Constructor
+
+"""Parametrized constructor takes parameters from the user but non-parameterized constructor do take any arguments
+"""#9. Create Parameterized constructor using class fro Que 4 and initialize the instance variables and print in the display method.
+
+class Student:
+    def __init__(self, StdName, RollNo, StdGender):
+        self.StdName = StdName
+        self.RollNo = RollNo
+        self.StdGender= StdGender
+
+Stud = Student("Sammy", 5, 'M')
+print(Stud.StdName)
+print(Stud.RollNo)
+print(Stud.StdGender)
+
+"""Output
+Sammy
+5
+M"""#1. What is class in the python
+
+"""A Class is like an object constructor, or a "blueprint" for creating objects. It helps to include different
+features in the program like inheritance, polymorphism, encapsulation, etc."""
